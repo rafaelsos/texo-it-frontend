@@ -1,0 +1,41 @@
+
+.title_table {
+  margin-bottom: 6px;
+}
+
+.container_table {
+  width: 100%;
+  margin-top: 16px;
+  flex-direction: column;
+  display: inline-block;
+  max-height: 220px;
+  overflow-y: scroll;
+}
+
+.container_table table {
+  width: 100%;
+  border: 1px solid #b3adad;
+  border-collapse: collapse;
+  padding: 6px;
+  text-align: left;
+}
+
+.container_table thead {
+  position: sticky;
+  top: 0;
+}
+
+.container_table th {
+  position: sticky;
+  border: 1px solid #b3adad;
+  padding: 6px;
+  background-color: #f0f0f0;
+  color: #000000;
+}
+
+.container_table td {
+  border: 1px solid #b3adad;
+  padding: 6px;
+  background-color: #ffffff;
+  color: #000000;
+}

@@ -1,85 +1,20 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-
 import { CardComponent } from '@/presentation/components/Card/CardComponent'
-import { TColumn } from '@/presentation/components/Datatable/DatatableComponent.types'
-import { useStateDebounce } from '@/presentation/hooks/UseDebounce/UseDebounce'
-import { useFetch } from '@/presentation/hooks/UseFecth/UseFecthHook'
-import { IMovies } from '@/presentation/screens/Dashboard/DashboardScreen.types'
 import styles from '@/presentation/screens/List/ListScreen.module.css'
-import { IRequest, MoviesService } from '@/services/Movies/MoviesService'
-
-interface IMoviesDraft extends Omit<IMovies, 'winner'> {
-  winner: string
-}
-
-export const columnsMovies: TColumn<
-  Pick<IMoviesDraft, 'id' | 'year' | 'title' | 'winner'>
->[] = [
-  {
-    key: 'id',
-    columnName: 'Id',
-  },
-  {
-    key: 'year',
-    columnName: 'Year',
-  },
-  {
-    key: 'title',
-    columnName: 'Title',
-  },
-  {
-    key: 'winner',
-    columnName: 'Winner?',
-  },
-]
-
-const initialRequest: IRequest = {
-  page: 0,
-  size: 99,
-  winner: false,
-  year: 1990,
-}
+import { columnsMovies, useListScreenRules } from './ListScreen.rules'
 
 export const List = () => {
-  const [filterYear, setFilterYear] = useState<number>(0)
-  const [filterWinner, setFilterWinner] = useState<string>('No')
-  const [filterYearDebounce, setFilterYearDebounce] = useStateDebounce(0)
-
-  const [currentPage, setCurrentPage] = useState(0)
-
-  const moviesHook = useFetch(MoviesService)
-
-  const handleFilterYear = (value: number) => {
-    setFilterYearDebounce(value)
-    setFilterYear(value)
-  }
-
-  const dataMoviesAdapt = useMemo(
-    () =>
-      moviesHook?.data?.content?.map((item) => ({
-        id: item.id,
-        year: item.year,
-        title: item.title,
-        winner: item.winner ? 'Yes' : 'No',
-      })) ?? [],
-    [moviesHook?.data?.content]
-  )
-
-  const requestFilter = useMemo(() => {
-    return {
-      ...initialRequest,
-      ...(filterYearDebounce && { year: filterYearDebounce }),
-      ...(filterWinner && { winner: filterWinner === 'Yes' }),
-      page: currentPage,
-    }
-  }, [filterYearDebounce, filterWinner, currentPage])
-
-  useEffect(() => {
-    moviesHook.handleFetch(requestFilter)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [requestFilter])
+  const {
+    dataMoviesAdapt,
+    handleFilterYear,
+    filterYear,
+    filterWinner,
+    setFilterWinner,
+    setCurrentPage,
+    currentPage,
+    moviesHook,
+  } = useListScreenRules()
 
   return (
     <section className={styles.container_screen}>

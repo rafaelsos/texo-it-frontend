@@ -1,13 +1,10 @@
 import { HttpClientConfig } from '@/infra/http/httpClientConfig'
-import { IMovies } from '@/presentation/screens/Dashboard/DashboardScreen.types'
+import { IMovies } from '@/services/Movies/MoviesService.types'
+import { IMoviesPerYearRequest } from '@/services/MoviesPerYear/MoviesPerYearService.types'
 
-export interface IRequest {
-  filter: number
-}
-
-export const MoviesPerYearService = async (params?: IRequest) => {
+export const MoviesPerYearService = async (request?: IMoviesPerYearRequest) => {
   const response = await HttpClientConfig.get<IMovies[]>(
-    `?winner=true&year=${params?.filter}`
+    `?winner=true&year=${request?.filter}`
   )
 
   return response.data

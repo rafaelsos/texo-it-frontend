@@ -4,7 +4,7 @@
   padding: 16px;
 }
 
-.input {
+.filter {
   position: relative;
   display: inline-block;
   padding: 12px;
@@ -12,47 +12,6 @@
   margin-top: 8px;
 }
 
-.title_table {
-  margin-bottom: 6px;
-}
-
-.container_table {
-  width: 100%;
-  margin-top: 16px;
-  flex-direction: column;
-  display: inline-block;
-  max-height: 500px;
-  overflow-y: scroll;
-}
-
-.container_table table {
-  width: 100%;
-  border: 1px solid #b3adad;
-  border-collapse: collapse;
-  padding: 6px;
-  text-align: left;
-}
-
-.container_table thead {
-  position: sticky;
-  top: 0;
-}
-
-.container_table th {
-  width: 20%;
-  position: sticky;
-  border: 1px solid #b3adad;
-  padding: 6px;
-  background-color: #f0f0f0;
-  color: #000000;
-}
-
-.container_table td {
-  border: 1px solid #b3adad;
-  padding: 6px;
-  background-color: #ffffff;
-  color: #000000;
-}
 
 .pagination {
   display: flex;
@@ -67,8 +26,7 @@
   text-decoration: none;
 }
 
-
-.button_pagination {
+.pagination button {
   padding: 12px;
   border: none;
 }

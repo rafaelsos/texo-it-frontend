@@ -1,8 +1,8 @@
 import { HttpClientConfig } from '@/infra/http/httpClientConfig'
-import { IMoviesStudios } from '@/presentation/screens/Dashboard/DashboardScreen.types'
+import { IMoviesStudiosResponse } from '@/services/Studios/StudioService.types'
 
 export const StudiosService = async () => {
-  const response = await HttpClientConfig.get<IMoviesStudios>(
+  const response = await HttpClientConfig.get<IMoviesStudiosResponse>(
     '?projection=studios-with-win-count'
   )
 

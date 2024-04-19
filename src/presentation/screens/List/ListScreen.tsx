@@ -1,111 +1,47 @@
 'use client'
 
 import { CardComponent } from '@/presentation/components/Card/CardComponent'
+import { DatatableComponent } from '@/presentation/components/Datatable/DatatableComponent'
 import styles from '@/presentation/screens/List/ListScreen.module.css'
-import { columnsMovies, useListScreenRules } from './ListScreen.rules'
+import { useListScreenRules } from '@/presentation/screens/List/ListScreen.rules'
 
-export const List = () => {
+export const ListScreen = () => {
   const {
     dataMoviesAdapt,
-    handleFilterYear,
-    filterYear,
-    filterWinner,
-    setFilterWinner,
     setCurrentPage,
     currentPage,
     moviesHook,
+    columnsMovies,
   } = useListScreenRules()
 
   return (
     <section className={styles.container_screen}>
       <CardComponent title="List movies" fullHeight>
-        <div className={styles.container_table}>
-          <table>
-            <thead>
-              <tr>
-                {columnsMovies.map((column, index) => (
-                  <th key={index}>
-                    <div>
-                      {column.columnName}
+        <DatatableComponent columns={columnsMovies} rows={dataMoviesAdapt} />
 
-                      {column.columnName === 'Year' && (
-                        <input
-                          className={styles.input}
-                          placeholder="Search by year"
-                          type="number"
-                          min={1900}
-                          max={2024}
-                          value={filterYear ? filterYear : ''}
-                          onChange={({ target }) =>
-                            handleFilterYear(parseFloat(target.value))
-                          }
-                        />
-                      )}
+        {moviesHook?.data && (
+          <div className={styles.pagination}>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={moviesHook?.data?.first}
+            >
+              {'<<'}
+            </button>
 
-                      {column.columnName === 'Winner?' && (
-                        <select
-                          className={styles.input}
-                          value={filterWinner}
-                          onChange={({ target }) =>
-                            setFilterWinner(target.value)
-                          }
-                        >
-                          <option value={'Yes'}>Yes</option>
-                          <option value={'No'}>No</option>
-                        </select>
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {dataMoviesAdapt?.map((item: Record<string, any>, index) => (
-                <tr key={index}>
-                  {Object.keys(item).map((itemKey) => (
-                    <td key={itemKey}>{item[itemKey]}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {moviesHook?.data && (
-            <div className={styles.pagination}>
-              <button
-                onClick={() => setCurrentPage(currentPage - 1)}
-                disabled={moviesHook?.data?.first}
-                className={styles.button_pagination}
-              >
-                {'<<'}
+            {[moviesHook.data.totalPages].map((item) => (
+              <button key={item} onClick={() => setCurrentPage(item - 1)}>
+                {item}
               </button>
+            ))}
 
-              {[moviesHook.data.totalPages].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => setCurrentPage(item - 1)}
-                  className={styles.button_pagination}
-                >
-                  {item}
-                </button>
-              ))}
-
-              <button
-                onClick={() => setCurrentPage(currentPage + 1)}
-                disabled={moviesHook?.data?.last}
-                className={styles.button_pagination}
-              >
-                {'>>'}
-              </button>
-            </div>
-          )}
-
-          <span>
-            Page {moviesHook?.data?.pageable?.pageNumber} of{' '}
-            {moviesHook?.data?.totalPages} total elements{' '}
-            {moviesHook?.data?.totalElements}
-          </span>
-        </div>
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={moviesHook?.data?.last}
+            >
+              {'>>'}
+            </button>
+          </div>
+        )}
       </CardComponent>
     </section>
   )

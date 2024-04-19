@@ -1,8 +1,8 @@
 import { HttpClientConfig } from '@/infra/http/httpClientConfig'
-import { IMoviesYearsWinners } from '@/presentation/screens/Dashboard/DashboardScreen.types'
+import { IMoviesYearsWinnersResponse } from '@/services/YearsWinners/YearsWinnersService.types'
 
 export const YearsWinnersService = async () => {
-  const response = await HttpClientConfig.get<IMoviesYearsWinners>(
+  const response = await HttpClientConfig.get<IMoviesYearsWinnersResponse>(
     '?projection=years-with-multiple-winners'
   )
 

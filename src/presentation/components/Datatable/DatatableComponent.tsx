@@ -18,7 +18,10 @@ export const DatatableComponent = <
         <thead>
           <tr>
             {columns.map((item, index) => (
-              <th key={index}>{item.columnName}</th>
+              <th key={index}>
+                {item.columnName}
+                {!!item.actions && item.actions}
+              </th>
             ))}
           </tr>
         </thead>

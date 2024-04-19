@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { List } from '@/presentation/screens/List/ListScreen'
+import { ListScreen } from '@/presentation/screens/List/ListScreen'
 
 export const metadata: Metadata = {
   title: {
@@ -10,5 +10,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <List />
+  return <ListScreen />
 }

@@ -5,15 +5,15 @@ import { useFetch } from '@/presentation/hooks/UseFecth/UseFecthHook'
 import {
   IMovies,
   IMoviesProducer,
-  IStudios,
-  IYearsWinners,
-} from '@/presentation/screens/Dashboard/DashboardScreen.types'
-import { IntervalForProducersService } from '@/services/IntervalForProducers/IntervalForProducersService'
-import { MoviesPerYearService } from '@/services/MoviesPerYear/MoviesPerYearService'
-import { StudiosService } from '@/services/Studios/StudiosService'
-import { YearsWinnersService } from '@/services/YearsWinners/YearsWinnersService'
+  IMoviesStudios,
+  IMoviesYearsWinners,
+  IntervalForProducersService,
+  MoviesPerYearService,
+  StudiosService,
+  YearsWinnersService,
+} from '@/services'
 
-export const columnsYearsWinners: TColumn<IYearsWinners>[] = [
+export const columnsYearsWinners: TColumn<IMoviesYearsWinners>[] = [
   {
     key: 'year',
     columnName: 'Year',
@@ -24,7 +24,7 @@ export const columnsYearsWinners: TColumn<IYearsWinners>[] = [
   },
 ]
 
-export const columnsStudios: TColumn<IStudios>[] = [
+export const columnsStudios: TColumn<IMoviesStudios>[] = [
   {
     key: 'name',
     columnName: 'Name',

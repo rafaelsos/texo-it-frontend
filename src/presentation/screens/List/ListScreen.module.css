@@ -1,16 +1,74 @@
-.main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+.container_screen {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 16px;
 }
 
-.card {
-  padding: 1rem 1.2rem;
-  border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
-  transition: background 200ms, border 200ms;
+.input {
+  position: relative;
+  display: inline-block;
+  padding: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.title_table {
+  margin-bottom: 6px;
+}
+
+.container_table {
+  width: 100%;
+  margin-top: 16px;
+  flex-direction: column;
+  display: inline-block;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.container_table table {
+  width: 100%;
+  border: 1px solid #b3adad;
+  border-collapse: collapse;
+  padding: 6px;
+  text-align: left;
+}
+
+.container_table thead {
+  position: sticky;
+  top: 0;
+}
+
+.container_table th {
+  width: 20%;
+  position: sticky;
+  border: 1px solid #b3adad;
+  padding: 6px;
+  background-color: #f0f0f0;
+  color: #000000;
+}
+
+.container_table td {
+  border: 1px solid #b3adad;
+  padding: 6px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+
+.button_pagination {
+  padding: 12px;
+  border: none;
 }

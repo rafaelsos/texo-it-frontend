@@ -3,14 +3,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { TColumn } from '@/presentation/components/Datatable/DatatableComponent.types'
 import { useFetch } from '@/presentation/hooks/UseFecth/UseFecthHook'
 import {
-  IMoviesIntervalForProducers,
-  IMoviesPerYear,
+  IMovies,
   IMoviesProducer,
-  IMoviesStudios,
-  IMoviesYearsWinners,
   IStudios,
   IYearsWinners,
 } from '@/presentation/screens/Dashboard/DashboardScreen.types'
+import { IntervalForProducersService } from '@/services/IntervalForProducers/IntervalForProducersService'
+import { MoviesPerYearService } from '@/services/MoviesPerYear/MoviesPerYearService'
+import { StudiosService } from '@/services/Studios/StudiosService'
+import { YearsWinnersService } from '@/services/YearsWinners/YearsWinnersService'
 
 export const columnsYearsWinners: TColumn<IYearsWinners>[] = [
   {
@@ -54,7 +55,7 @@ export const columnsIntervalProducers: TColumn<IMoviesProducer>[] = [
 ]
 
 export const columnsMoviesPerYear: TColumn<
-  Pick<IMoviesPerYear, 'id' | 'year' | 'title'>
+  Pick<IMovies, 'id' | 'year' | 'title'>
 >[] = [
   {
     key: 'id',
@@ -73,50 +74,40 @@ export const columnsMoviesPerYear: TColumn<
 export const useDashboardScreenRules = () => {
   const [filterPerYear, setFilterPerYear] = useState<number>(0)
 
-  const { data: dataYearsWinners, handleFetch: fetchYearsWinners } =
-    useFetch<IMoviesYearsWinners>('?projection=years-with-multiple-winners')
-
-  const { data: dataStudios, handleFetch: fetchStudios } =
-    useFetch<IMoviesStudios>('?projection=studios-with-win-count')
-
-  const { data: dataIntervalProducers, handleFetch: fetchIntervalProducers } =
-    useFetch<IMoviesIntervalForProducers>(
-      '?projection=max-min-win-interval-for-producers'
-    )
-
-  const { data: dataPerYear, handleFetch: fetchPerYear } = useFetch<
-    IMoviesPerYear[]
-  >(`?winner=true&year=${filterPerYear}`)
+  const yearsWinnersHook = useFetch(YearsWinnersService)
+  const studiosHook = useFetch(StudiosService)
+  const intervalForProducers = useFetch(IntervalForProducersService)
+  const moviesPerYearHook = useFetch(MoviesPerYearService)
 
   const dataPerYearAdapt = useMemo(
     () =>
-      dataPerYear?.map((item) => ({
+      moviesPerYearHook?.data?.map((item) => ({
         id: item?.id,
         year: item?.year,
         title: item?.title,
       })),
-    [dataPerYear]
+    [moviesPerYearHook?.data]
   )
 
   const handleFetchPerYear = () => {
-    fetchPerYear()
+    moviesPerYearHook.handleFetch({
+      filter: filterPerYear,
+    })
   }
 
   useEffect(() => {
-    fetchYearsWinners()
-    fetchStudios()
-    fetchIntervalProducers()
+    yearsWinnersHook.handleFetch()
+    studiosHook.handleFetch()
+    intervalForProducers.handleFetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log('dataPerYearAdapt', dataPerYearAdapt)
-
   return {
+    dataYearsWinners: yearsWinnersHook.data,
+    dataStudios: studiosHook.data,
+    dataIntervalProducers: intervalForProducers.data,
     handleFetchPerYear,
     dataPerYearAdapt,
-    dataYearsWinners,
-    dataStudios,
-    dataIntervalProducers,
     setFilterPerYear,
     filterPerYear,
   }

@@ -1,5 +1,6 @@
 'use client'
 
+import { CardComponent } from '@/presentation/components/Card/CardComponent'
 import { DatatableComponent } from '@/presentation/components/Datatable/DatatableComponent'
 import styles from '@/presentation/screens/Dashboard/DashboardScreen.module.css'
 import {
@@ -25,31 +26,25 @@ export const DashboardScreen = () => {
     <section className={styles.container}>
       <div className={styles.container_grid}>
         <div className={styles.grid1}>
-          <div className={styles.card}>
-            <span className={styles.title}>
-              List years with multiple winners
-            </span>
+          <CardComponent title="List years with multiple winners">
             <DatatableComponent
               columns={columnsYearsWinners}
               rows={dataYearsWinners?.years ?? []}
             />
-          </div>
+          </CardComponent>
         </div>
 
         <div className={styles.grid2}>
-          <div className={styles.card}>
-            <span className={styles.title}>Top 3 studios with winners</span>
+          <CardComponent title="Top 3 studios with winners">
             <DatatableComponent
               columns={columnsStudios}
               rows={dataStudios?.studios ?? []}
             />
-          </div>
+          </CardComponent>
         </div>
+
         <div className={styles.grid3}>
-          <div className={styles.card}>
-            <span className={styles.title}>
-              Producers with longest and shortest interval between wins
-            </span>
+          <CardComponent title="Producers with longest and shortest interval between wins">
             <DatatableComponent
               title="Maximum"
               columns={columnsIntervalProducers}
@@ -61,12 +56,11 @@ export const DashboardScreen = () => {
               columns={columnsIntervalProducers}
               rows={dataIntervalProducers?.min ?? []}
             />
-          </div>
+          </CardComponent>
         </div>
-        <div className={styles.grid4}>
-          <div className={styles.card}>
-            <span className={styles.title}>List Movie winners by year</span>
 
+        <div className={styles.grid4}>
+          <CardComponent title="List Movie winners by year">
             <div className={styles.container_search}>
               <input
                 className={styles.input}
@@ -89,7 +83,7 @@ export const DashboardScreen = () => {
               columns={columnsMoviesPerYear}
               rows={dataPerYearAdapt ?? []}
             />
-          </div>
+          </CardComponent>
         </div>
       </div>
     </section>

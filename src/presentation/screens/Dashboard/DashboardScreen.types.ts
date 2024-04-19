@@ -28,7 +28,7 @@ export interface IMoviesStudios {
   studios: IStudios[]
 }
 
-export interface IMoviesPerYear {
+export interface IMovies {
   id: number
   year: number
   title: string

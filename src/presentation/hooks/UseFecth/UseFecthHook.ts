@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { HttpClientConfig } from '@/infra/http/httpClientConfig'
 import { IActionRequest } from '@/presentation/hooks/UseFecth/UseFetchHook.types'
 
-export function useFetch<TResponse>(service: string) {
+export function useFetch<TResponse, TRequest = null>(
+  service: (request?: TRequest) => Promise<TResponse>
+) {
   const [state, setState] = useState<IActionRequest<TResponse, Error> | null>(
     null
   )
@@ -13,15 +14,15 @@ export function useFetch<TResponse>(service: string) {
   const isWaiting = state?.status?.type === 'waiting'
   const isFailure = state?.status?.type === 'failure'
 
-  const handleFetch = async () => {
+  const handleFetch = async (request?: TRequest) => {
     setState({ status: { type: 'waiting' } })
 
     try {
-      const response = await HttpClientConfig.get<TResponse>(service)
+      const response = await service(request)
 
       setState({
         status: { type: 'success' },
-        data: response.data,
+        data: response,
       })
 
       return response

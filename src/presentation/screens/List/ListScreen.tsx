@@ -1,9 +1,10 @@
 'use client'
 
-import { SetStateAction, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { CardComponent } from '@/presentation/components/Card/CardComponent'
 import { TColumn } from '@/presentation/components/Datatable/DatatableComponent.types'
+import { useStateDebounce } from '@/presentation/hooks/UseDebounce/UseDebounce'
 import { useFetch } from '@/presentation/hooks/UseFecth/UseFecthHook'
 import { IMovies } from '@/presentation/screens/Dashboard/DashboardScreen.types'
 import styles from '@/presentation/screens/List/ListScreen.module.css'
@@ -39,29 +40,6 @@ const initialRequest: IRequest = {
   size: 99,
   winner: false,
   year: 1990,
-}
-
-let timer: ReturnType<typeof setTimeout>
-
-const debounce = <TFn extends (...args: any[]) => any>(
-  callback: TFn,
-  timeout: number = 500
-) => {
-  return (...params: Parameters<TFn>) => {
-    clearTimeout(timer)
-
-    timer = setTimeout(() => callback(...params), timeout)
-  }
-}
-
-export const useStateDebounce = (
-  initialValue: any,
-  timeout = 500
-): [typeof initialValue, (value: SetStateAction<any>) => void] => {
-  const [value, setValue] = useState<typeof initialValue>(initialValue)
-  const setValueDebounce = debounce(setValue, timeout)
-
-  return [value, setValueDebounce]
 }
 
 export const List = () => {

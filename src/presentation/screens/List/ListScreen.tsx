@@ -1,5 +1,7 @@
 'use client'
 
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
+
 import { CardComponent } from '@/presentation/components/Card/CardComponent'
 import { DatatableComponent } from '@/presentation/components/Datatable/DatatableComponent'
 import styles from '@/presentation/screens/List/ListScreen.module.css'
@@ -25,7 +27,7 @@ export const ListScreen = () => {
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={moviesHook?.data?.first}
             >
-              {'<<'}
+              <MdArrowBackIos />
             </button>
 
             {[moviesHook.data.totalPages].map((item) => (
@@ -38,7 +40,7 @@ export const ListScreen = () => {
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={moviesHook?.data?.last}
             >
-              {'>>'}
+              <MdArrowForwardIos />
             </button>
           </div>
         )}

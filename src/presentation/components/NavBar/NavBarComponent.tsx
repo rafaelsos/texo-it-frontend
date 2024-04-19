@@ -10,7 +10,7 @@ export const NavbarComponent = () => {
 
   const isActiveScreen = (pathName: string) => {
     return path == pathName
-      ? { fontWeight: 600, color: '#7ba8d5' }
+      ? { fontWeight: 600, color: '#2d8be9' }
       : { fontWeight: 400, color: '#b3adad' }
   }
 

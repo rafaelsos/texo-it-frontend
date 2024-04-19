@@ -1,5 +1,7 @@
 'use client'
 
+import { MdSearch } from 'react-icons/md'
+
 import { CardComponent } from '@/presentation/components/Card/CardComponent'
 import { DatatableComponent } from '@/presentation/components/Datatable/DatatableComponent'
 import styles from '@/presentation/screens/Dashboard/DashboardScreen.module.css'
@@ -75,7 +77,7 @@ export const DashboardScreen = () => {
               />
 
               <button onClick={handleFetchPerYear} className={styles.button}>
-                <span> Icon search</span>
+                <MdSearch color="#fff" size={20} />
               </button>
             </div>
 

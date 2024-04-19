@@ -9,7 +9,7 @@
   flex-direction: column;
   display: inline-block;
   max-height: 220px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .container_table table {

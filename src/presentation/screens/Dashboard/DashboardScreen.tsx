@@ -79,10 +79,12 @@ export const DashboardScreen = () => {
               </button>
             </div>
 
-            <DatatableComponent
-              columns={columnsMoviesPerYear}
-              rows={dataPerYearAdapt ?? []}
-            />
+            {dataPerYearAdapt && (
+              <DatatableComponent
+                columns={columnsMoviesPerYear}
+                rows={dataPerYearAdapt}
+              />
+            )}
           </CardComponent>
         </div>
       </div>

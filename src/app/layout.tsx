@@ -14,7 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <HeaderComponent />
 
         <div

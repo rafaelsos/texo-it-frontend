@@ -21,7 +21,7 @@ export const ListScreen = () => {
       <CardComponent title="List movies" fullHeight>
         <DatatableComponent columns={columnsMovies} rows={dataMoviesAdapt} />
 
-        {moviesHook?.data && (
+        {moviesHook?.data && moviesHook?.data?.totalPages > 0 && (
           <div className={styles.pagination}>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
@@ -30,11 +30,17 @@ export const ListScreen = () => {
               <MdArrowBackIos />
             </button>
 
-            {[moviesHook.data.totalPages].map((item) => (
-              <button key={item} onClick={() => setCurrentPage(item - 1)}>
-                {item}
-              </button>
-            ))}
+            {Array.from(Array(moviesHook.data.totalPages).keys()).map(
+              (item) => (
+                <button
+                  key={item}
+                  disabled={item === currentPage}
+                  onClick={() => setCurrentPage(item)}
+                >
+                  {item + 1}
+                </button>
+              )
+            )}
 
             <button
               onClick={() => setCurrentPage(currentPage + 1)}

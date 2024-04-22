@@ -6,18 +6,16 @@ import { useFetch } from '@/presentation/hooks/UseFecth/UseFecthHook'
 import styles from '@/presentation/screens/List/ListScreen.module.css'
 import { IMovies, IMoviesRequest, MoviesService } from '@/services'
 
-export const defaultRequest: IMoviesRequest = {
+export const defaultRequest: Omit<IMoviesRequest, 'winner' | 'year'> = {
   page: 0,
-  size: 99,
-  winner: false,
-  year: 1990,
+  size: 12,
 }
 
 export const useListScreenRules = () => {
   const [filterYearDebounce, setFilterYearDebounce] = useStateDebounce(0)
-  const [filterYear, setFilterYear] = useState<number>(1990)
-  const [filterWinner, setFilterWinner] = useState<string>('No')
-  const [currentPage, setCurrentPage] = useState(0)
+  const [filterYear, setFilterYear] = useState<number>(0)
+  const [filterWinner, setFilterWinner] = useState<string>()
+  const [currentPage, setCurrentPage] = useState<number>(0)
 
   const moviesHook = useFetch(MoviesService)
 
@@ -41,7 +39,7 @@ export const useListScreenRules = () => {
     return {
       ...defaultRequest,
       ...(filterYearDebounce && { year: filterYearDebounce }),
-      ...(filterWinner && { winner: filterWinner === 'Yes' }),
+      ...(filterWinner && { winner: filterWinner }),
       page: currentPage,
     }
   }, [filterYearDebounce, filterWinner, currentPage])
@@ -67,7 +65,6 @@ export const useListScreenRules = () => {
             className={styles.filter}
             placeholder="Search by year"
             type="number"
-            min={1900}
             max={2024}
             value={filterYear ? filterYear : ''}
             onChange={({ target }) =>
@@ -91,6 +88,7 @@ export const useListScreenRules = () => {
             value={filterWinner}
             onChange={({ target }) => setFilterWinner(target.value)}
           >
+            <option value="">Yes/No</option>
             <option value={'Yes'}>Yes</option>
             <option value={'No'}>No</option>
           </select>

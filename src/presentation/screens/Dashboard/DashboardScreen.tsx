@@ -18,7 +18,7 @@ export const DashboardScreen = () => {
     handleFetchPerYear,
     dataPerYearAdapt,
     dataYearsWinners,
-    dataStudios,
+    dataStudiosAdapt,
     dataIntervalProducers,
     setFilterPerYear,
     filterPerYear,
@@ -40,7 +40,7 @@ export const DashboardScreen = () => {
           <CardComponent title="Top 3 studios with winners">
             <DatatableComponent
               columns={columnsStudios}
-              rows={dataStudios?.studios ?? []}
+              rows={dataStudiosAdapt ?? []}
             />
           </CardComponent>
         </div>

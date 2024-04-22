@@ -89,6 +89,14 @@ export const useDashboardScreenRules = () => {
     [moviesPerYearHook?.data]
   )
 
+  const dataStudiosAdapt = useMemo(
+    () =>
+      studiosHook?.data?.studios
+        ?.sort((a, b) => b.winCount - a.winCount)
+        .slice(0, 3),
+    [studiosHook?.data?.studios]
+  )
+
   const handleFetchPerYear = () => {
     moviesPerYearHook.handleFetch({
       filter: filterPerYear,
@@ -104,10 +112,10 @@ export const useDashboardScreenRules = () => {
 
   return {
     dataYearsWinners: yearsWinnersHook.data,
-    dataStudios: studiosHook.data,
     dataIntervalProducers: intervalForProducers.data,
-    handleFetchPerYear,
+    dataStudiosAdapt,
     dataPerYearAdapt,
+    handleFetchPerYear,
     setFilterPerYear,
     filterPerYear,
   }

@@ -47,7 +47,7 @@ jest.mock('@/presentation/hooks/UseFecth/UseFecthHook', () => ({
 }))
 
 describe('DashboardScreen', () => {
-  it('should render card grid years winners', () => {
+  it('should render the winners of the year in the table', () => {
     render(<DashboardScreen />)
 
     const gridYearsWinners = screen.getByText(
@@ -57,7 +57,7 @@ describe('DashboardScreen', () => {
     expect(gridYearsWinners).toBeInTheDocument()
   })
 
-  it('should render title grid studios', () => {
+  it('should render the studios in the table', () => {
     render(<DashboardScreen />)
 
     const gridStudios = screen.getByText('Top 3 studios with winners')
@@ -65,18 +65,18 @@ describe('DashboardScreen', () => {
     expect(gridStudios).toBeInTheDocument()
   })
 
-  it('should render list years winners data', () => {
+  it('should present the information of the year of the winners of the year', () => {
     dataMock.mockReturnValueOnce(yearsWinnersDataMock)
 
     render(<DashboardScreen />)
 
-    yearsWinnersDataMock.years.forEach((movie) => {
-      const yearText = screen.getByText(movie.year)
+    yearsWinnersDataMock.years.forEach((item) => {
+      const yearText = screen.getByText(item.year)
       expect(yearText).toBeInTheDocument()
     })
   })
 
-  it('should render list studios data', () => {
+  it('should present the information of the name of the studios', () => {
     dataMock
       .mockReturnValueOnce(studiosDataMock)
       .mockReturnValueOnce(studiosDataMock)
@@ -89,7 +89,7 @@ describe('DashboardScreen', () => {
     })
   })
 
-  it('should filter movies winners per year', () => {
+  it('should look for the winner per year', () => {
     render(<DashboardScreen />)
 
     const inputYear = screen.getByPlaceholderText('Search by year')

@@ -179,7 +179,7 @@ describe('ListScreen', () => {
     expect(handleFetchMock).toHaveBeenCalled()
   })
 
-  it('should render list screen with data', () => {
+  it('should display the list of movies title', () => {
     render(<ListScreen />)
 
     dataListMock.content.forEach((movie) => {

@@ -60,18 +60,15 @@ export const useListScreenRules = () => {
       key: 'year',
       columnName: 'Year',
       actions: [
-        <>
-          <input
-            className={styles.filter}
-            placeholder="Search by year"
-            type="number"
-            max={2024}
-            value={filterYear ? filterYear : ''}
-            onChange={({ target }) =>
-              handleFilterYear(parseFloat(target.value))
-            }
-          />
-        </>,
+        <input
+          key="input"
+          className={styles.filter}
+          placeholder="Search by year"
+          type="number"
+          max={2024}
+          value={filterYear ? filterYear : ''}
+          onChange={({ target }) => handleFilterYear(parseFloat(target.value))}
+        />,
       ],
     },
     {
@@ -82,17 +79,16 @@ export const useListScreenRules = () => {
       key: 'winner',
       columnName: 'Winner?',
       actions: [
-        <>
-          <select
-            className={styles.filter}
-            value={filterWinner}
-            onChange={({ target }) => setFilterWinner(target.value)}
-          >
-            <option value="">Yes/No</option>
-            <option value={'Yes'}>Yes</option>
-            <option value={'No'}>No</option>
-          </select>
-        </>,
+        <select
+          key="select"
+          className={styles.filter}
+          value={filterWinner}
+          onChange={({ target }) => setFilterWinner(target.value)}
+        >
+          <option value="">Yes/No</option>
+          <option value={'Yes'}>Yes</option>
+          <option value={'No'}>No</option>
+        </select>,
       ],
     },
   ]

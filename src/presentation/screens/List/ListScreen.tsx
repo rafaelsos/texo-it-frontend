@@ -19,13 +19,17 @@ export const ListScreen = () => {
   return (
     <section className={styles.container_screen}>
       <CardComponent title="List movies" fullHeight>
-        <DatatableComponent columns={columnsMovies} rows={dataMoviesAdapt} />
+        <DatatableComponent
+          columns={columnsMovies}
+          rows={dataMoviesAdapt ?? []}
+        />
 
         {moviesHook?.data && moviesHook?.data?.totalPages > 0 && (
           <div className={styles.pagination}>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={moviesHook?.data?.first}
+              aria-label="previous page"
             >
               <MdArrowBackIos />
             </button>
@@ -45,6 +49,7 @@ export const ListScreen = () => {
             <button
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={moviesHook?.data?.last}
+              aria-label="next page"
             >
               <MdArrowForwardIos />
             </button>

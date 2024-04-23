@@ -68,7 +68,6 @@ export const DashboardScreen = () => {
                 className={styles.input}
                 placeholder="Search by year"
                 type="number"
-                min={1900}
                 max={2024}
                 value={filterPerYear ? filterPerYear : ''}
                 onChange={({ target }) =>
@@ -76,7 +75,11 @@ export const DashboardScreen = () => {
                 }
               />
 
-              <button onClick={handleFetchPerYear} className={styles.button}>
+              <button
+                aria-label="Search by year button"
+                onClick={handleFetchPerYear}
+                className={styles.button}
+              >
                 <MdSearch color="#fff" size={20} />
               </button>
             </div>
